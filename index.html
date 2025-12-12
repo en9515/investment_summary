@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Investment Wrapped</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+    }
+    .gradient-border {
+      position: relative;
+      border-radius: 1.5rem;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.7), rgba(236,72,153,0.7));
+    }
+    .gradient-border-inner {
+      border-radius: 1.4rem;
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(10px);
+    }
+    .bg-grid {
+      background-image: linear-gradient(
+          rgba(148, 163, 184, 0.05) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(148, 163, 184, 0.05) 1px,
+          transparent 1px
+        );
+      background-size: 40px 40px;
+    }
+    .pill {
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(10px);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <!-- 頂部導覽 -->
+  <header class="sticky top-0 z-30 bg-slate-950/70 backdrop-blur border-b border-slate-800/60">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-xs font-semibold">
+          IW
+        </div>
+        <div class="text-sm text-slate-300">
+          <span id="nav-title-year">2025</span> Investment Wrapped
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-4 text-xs text-slate-300">
+        <a href="#overview" class="hover:text-blue-400 transition">總覽</a>
+        <a href="#style" class="hover:text-blue-400 transition">投資風格</a>
+        <a href="#top-holdings" class="hover:text-blue-400 transition">MVP 持股</a>
+        <a href="#drama" class="hover:text-blue-400 transition">戲劇性時刻</a>
+        <a href="#outlook" class="hover:text-blue-400 transition">明年展望</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主內容 -->
+  <main class="max-w-6xl mx-auto px-4 pb-16 pt-10 space-y-16">
+    <!-- Hero 區 -->
+    <section id="hero" class="relative overflow-hidden rounded-3xl bg-grid border border-slate-800/70">
+      <!-- 漸層光暈 -->
+      <div class="absolute -top-32 -left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-28 -right-10 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 px-6 py-10 md:px-12 md:py-16 flex flex-col md:flex-row md:items-center gap-10">
+        <div class="flex-1 space-y-6">
+          <div class="pill inline-flex items-center gap-2 px-3 py-1 text-xs text-slate-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>自動產生的年度投資回顧</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
+            <span id="hero-year" class="text-blue-400">2025</span>
+            <span class="block mt-1">
+              <span id="hero-name">Your</span> Investment Wrapped
+            </span>
+          </h1>
+          <p class="text-slate-300 text-sm md:text-base max-w-xl">
+            回顧過去一年，你投入的每一筆資金、承受的每一段波動，
+            都在塑造現在的你。讓我們一起看看，這一年你的資產，
+            是如何在紀律與波動中成長。
+          </p>
+          <div class="flex flex-wrap gap-3 text-xs text-slate-300">
+            <div class="pill px-3 py-1">
+              📅 <span id="hero-year-label">2025</span> 全年度統計
+            </div>
+            <div class="pill px-3 py-1">
+              📊 自動生成圖表
+            </div>
+            <div class="pill px-3 py-1">
+              🧠 行為風格洞察
+            </div>
+          </div>
+          <button
+            onclick="document.getElementById('overview').scrollIntoView({ behavior: 'smooth' });"
+            class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-sm font-medium shadow-lg shadow-blue-500/30 hover:shadow-purple-500/40 transition">
+            開始探索你的這一年
+            <span>↓</span>
+          </button>
+        </div>
+
+        <div class="flex-1 flex justify-center md:justify-end">
+          <div class="gradient-border w-full max-w-sm md:max-w-md">
+            <div class="gradient-border-inner p-5 space-y-4">
+              <p class="text-xs text-slate-400 uppercase tracking-wide">年度快照</p>
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p class="text-slate-400 text-xs mb-1">投入資金</p>
+                  <p id="stat-total-invested" class="text-lg font-semibold text-slate-50">
+                    NTD -
+                  </p>
+                </div>
+                <div>
+                  <p class="text-slate-400 text-xs mb-1">期末資產</p>
+                  <p id="stat-total-value" class="text-lg font-semibold text-emerald-400">
+                    NTD -
+                  </p>
+                </div>
+                <div>
+                  <p class="text-slate-400 text-xs mb-1">報酬率</p>
+                  <p id="stat-return-pct" class="text-lg font-semibold text-blue-400">
+                    -
+                  </p>
+                </div>
+                <div>
+                  <p class="text-slate-400 text-xs mb-1">資產成長</p>
+                  <p id="stat-growth-amount" class="text-lg font-semibold text-pink-400">
+                    NTD -
+                  </p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400">
+                統計期間：整個年度，包含所有帳戶與持股。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 年度總覽 -->
+    <section id="overview" class="space-y-6">
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-xl font-semibold">年度總覽</h2>
+        <p class="text-xs text-slate-400">
+          先從整體表現開始，看見你這一年的投資軌跡。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">你出手的份量</p>
+            <p class="text-2xl font-semibold" id="card-total-invested">NTD -</p>
+            <p class="text-xs text-slate-400">
+              全年度累積投入金額，包含定期定額與單筆加碼。
+            </p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">資產成長</p>
+            <p class="text-2xl font-semibold">
+              <span id="card-growth-amount">NTD -</span>
+            </p>
+            <p class="text-xs text-slate-400">
+              相較年初，你讓資產增加了這個數字。
+            </p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">你看盤的次數</p>
+            <p class="text-2xl font-semibold" id="card-check-count">- 次</p>
+            <p class="text-xs text-slate-400">
+              代表你為這些決策花了多少注意力。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 投資風格 -->
+    <section id="style" class="space-y-6">
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-xl font-semibold">你的投資風格</h2>
+        <p class="text-xs text-slate-400">
+          讓數據告訴你，你是哪一種投資人格。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-5 space-y-4">
+            <p class="text-xs text-slate-400">資產配置</p>
+            <canvas id="chart-allocation" class="w-full h-64"></canvas>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-5 space-y-4">
+            <p class="text-xs text-slate-400">風格標籤</p>
+            <div class="space-y-2 text-sm">
+              <p>
+                投資人格：
+                <span id="style-personality" class="font-semibold text-blue-400">
+                  -
+                </span>
+              </p>
+              <p id="style-tagline" class="text-slate-300 text-sm leading-relaxed">
+                -
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-xs mt-3">
+              <div class="pill px-3 py-2">
+                🇺🇸 美股比重：
+                <span id="style-us-pct" class="font-semibold text-emerald-400"></span>
+              </div>
+              <div class="pill px-3 py-2">
+                🇹🇼 台股比重：
+                <span id="style-tw-pct" class="font-semibold text-emerald-400"></span>
+              </div>
+              <div class="pill px-3 py-2">
+                💻 科技類股：
+                <span id="style-tech-pct" class="font-semibold text-emerald-400"></span>
+              </div>
+              <div class="pill px-3 py-2">
+                🏦 金融相關：
+                <span id="style-finance-pct" class="font-semibold text-emerald-400"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MVP 持股 -->
+    <section id="top-holdings" class="space-y-6">
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-xl font-semibold">你的 MVP 持股</h2>
+        <p class="text-xs text-slate-400">
+          誰在背後撐起你的報酬，誰又讓你學到最深刻的一課。
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 gradient-border">
+          <div class="gradient-border-inner p-5 space-y-4 overflow-x-auto">
+            <p class="text-xs text-slate-400 mb-1">前五大持股</p>
+            <table class="min-w-full text-xs text-left border-collapse">
+              <thead class="border-b border-slate-700 text-slate-400">
+                <tr>
+                  <th class="py-2 pr-4">標的</th>
+                  <th class="py-2 pr-4">名稱</th>
+                  <th class="py-2 pr-4 text-right">比重</th>
+                  <th class="py-2 pr-4 text-right">報酬率</th>
+                  <th class="py-2 pr-0 text-right">貢獻金額</th>
+                </tr>
+              </thead>
+              <tbody id="top-holdings-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-5 space-y-4">
+            <p class="text-xs text-slate-400">報酬貢獻</p>
+            <canvas id="chart-contribution" class="w-full h-64"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 戲劇性時刻 -->
+    <section id="drama" class="space-y-6">
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-xl font-semibold">這一年最戲劇性的時刻</h2>
+        <p class="text-xs text-slate-400">
+          波動不是敵人，它只是在提醒你：你正在市場裡。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-5">
+        <div class="gradient-border md:col-span-2">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">最大單日獲利</p>
+            <p id="drama-max-pl" class="text-2xl font-semibold text-emerald-400">
+              NTD -
+            </p>
+            <p class="text-xs text-slate-400">
+              這一天，你的決策與市場站在同一邊。
+            </p>
+          </div>
+        </div>
+        <div class="gradient-border md:col-span-2">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">最大單日回吐</p>
+            <p id="drama-min-pl" class="text-2xl font-semibold text-rose-400">
+              NTD -
+            </p>
+            <p class="text-xs text-slate-400">
+              而這一天，則提醒你：風險管理永遠值得被重視。
+            </p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">最大回撤</p>
+            <p id="drama-drawdown" class="text-2xl font-semibold text-amber-300">
+              -
+            </p>
+            <p class="text-xs text-slate-400">
+              這是你在這一年能承受的最大波動。
+            </p>
+          </div>
+        </div>
+        <div class="gradient-border md:col-span-2">
+          <div class="gradient-border-inner p-4 space-y-2">
+            <p class="text-xs text-slate-400">你最常查看的標的</p>
+            <p class="text-lg font-semibold">
+              <span id="drama-most-checked-ticker" class="text-blue-400">-</span>
+              <span class="text-sm text-slate-400">（查看 <span id="drama-most-checked-times">-</span> 次）</span>
+            </p>
+            <p class="text-xs text-slate-400">
+              顯然，它在你的投資旅程裡佔據了不少心思。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 明年展望 -->
+    <section id="outlook" class="space-y-6">
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-xl font-semibold">下一步，往哪裡走？</h2>
+        <p class="text-xs text-slate-400">
+          用這一年的數據，替未來的自己留下一些提醒。
+        </p>
+      </div>
+
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-6 space-y-4">
+          <p class="text-xs text-slate-400 mb-1">明年的專注方向</p>
+          <ul id="outlook-focus" class="list-disc pl-5 space-y-2 text-sm text-slate-200">
+          </ul>
+          <p class="text-xs text-slate-400 mt-4">給未來自己的話：</p>
+          <p id="outlook-motto" class="text-sm font-medium text-emerald-300">
+            -
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-slate-800/60 text-xs text-slate-500 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        Generated by <span class="text-slate-300 font-medium">Investment Wrapped Engine</span>
+      </div>
+      <div>
+        <span id="footer-year">2025</span> · Crafted for
+        <span id="footer-name" class="text-slate-300">you</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    let allocationChart = null;
+    let contributionChart = null;
+
+    const demoData = {
+      year: 2025,
+      investorName: "ChengEn",
+      total_invested: 320000,
+      total_value_end: 361500,
+      total_return_pct: 12.97,
+      growth_amount: 41500,
+      check_count: 186,
+      style: {
+        equity_pct: 84,
+        bond_pct: 8,
+        cash_pct: 8,
+        us_pct: 72,
+        tw_pct: 18,
+        other_pct: 10,
+        tech_pct: 58,
+        finance_pct: 12,
+        other_sector_pct: 30,
+        personality: "穩健型 ISTJ",
+        tagline:
+          "你偏好具備強基本面與產業龍頭的標的，對波動有紀律但不盲目追高。"
+      },
+      top_holdings: [
+        {
+          ticker: "NVDA",
+          name: "NVIDIA",
+          weight_pct: 22,
+          return_pct: 55,
+          contribution: 32000
+        },
+        {
+          ticker: "TSLA",
+          name: "Tesla",
+          weight_pct: 8,
+          return_pct: -12,
+          contribution: -4000
+        },
+        {
+          ticker: "QQQM",
+          name: "QQQM",
+          weight_pct: 18,
+          return_pct: 18,
+          contribution: 6000
+        },
+        {
+          ticker: "VTI",
+          name: "Vanguard Total Market",
+          weight_pct: 15,
+          return_pct: 10,
+          contribution: 4500
+        },
+        {
+          ticker: "BND",
+          name: "Vanguard Total Bond",
+          weight_pct: 10,
+          return_pct: 3,
+          contribution: 900
+        }
+      ],
+      drama: {
+        max_daily_pl: 8700,
+        min_daily_pl: -9200,
+        max_drawdown_pct: -14.2,
+        most_checked_ticker: "NVDA",
+        most_checked_times: 37
+      },
+      outlook: {
+        focus_areas: [
+          "建立固定的再平衡機制（例如每季或半年檢查一次配置）",
+          "強化風險與部位管理，避免單一標的比重過高",
+          "保留部分現金部位應對系統性回調"
+        ],
+        motto: "2026, let your discipline compound."
+      }
+    };
+
+    async function loadRecapData() {
+      try {
+        const res = await fetch("recap.json", { cache: "no-cache" });
+        if (!res.ok) throw new Error("no recap.json");
+        const json = await res.json();
+        return json;
+      } catch (e) {
+        console.warn("使用 demo 資料（找不到 recap.json）", e);
+        return demoData;
+      }
+    }
+
+    function formatCurrency(n) {
+      if (n == null || isNaN(n)) return "NTD -";
+      return "NTD " + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+    }
+
+    function formatPct(n, digits = 2) {
+      if (n == null || isNaN(n)) return "-";
+      return n.toFixed(digits) + "%";
+    }
+
+    function updateText(data) {
+      const y = data.year || new Date().getFullYear();
+      const name = data.investorName || "you";
+
+      // Hero & Nav & Footer
+      document.getElementById("hero-year").textContent = y;
+      document.getElementById("hero-year-label").textContent = y;
+      document.getElementById("nav-title-year").textContent = y;
+      document.getElementById("hero-name").textContent = name;
+      document.getElementById("footer-year").textContent = y;
+      document.getElementById("footer-name").textContent = name;
+
+      // Stats
+      const invested = data.total_invested;
+      const valueEnd = data.total_value_end;
+      const growth = data.growth_amount;
+      const retPct = data.total_return_pct;
+      const checkCount = data.check_count;
+
+      document.getElementById("stat-total-invested").textContent =
+        formatCurrency(invested);
+      document.getElementById("stat-total-value").textContent =
+        formatCurrency(valueEnd);
+      document.getElementById("stat-growth-amount").textContent =
+        formatCurrency(growth);
+      document.getElementById("stat-return-pct").textContent =
+        formatPct(retPct, 2);
+
+      document.getElementById("card-total-invested").textContent =
+        formatCurrency(invested);
+      document.getElementById("card-growth-amount").textContent =
+        formatCurrency(growth);
+      document.getElementById("card-check-count").textContent =
+        (checkCount ?? "-") + (checkCount != null ? " 次" : "");
+    }
+
+    function updateStyle(data) {
+      const s = data.style || {};
+      document.getElementById("style-personality").textContent =
+        s.personality || "-";
+      document.getElementById("style-tagline").textContent =
+        s.tagline || "這一年，你用自己的方式與市場相處著。";
+
+      document.getElementById("style-us-pct").textContent =
+        formatPct(s.us_pct ?? 0);
+      document.getElementById("style-tw-pct").textContent =
+        formatPct(s.tw_pct ?? 0);
+      document.getElementById("style-tech-pct").textContent =
+        formatPct(s.tech_pct ?? 0);
+      document.getElementById("style-finance-pct").textContent =
+        formatPct(s.finance_pct ?? 0);
+
+      const eq = s.equity_pct ?? 0;
+      const bond = s.bond_pct ?? 0;
+      const cash = s.cash_pct ?? 0;
+
+      const ctx = document.getElementById("chart-allocation").getContext("2d");
+      if (allocationChart) allocationChart.destroy();
+      allocationChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: ["股票", "債券", "現金"],
+          datasets: [
+            {
+              data: [eq, bond, cash],
+            }
+          ]
+        },
+        options: {
+          plugins: {
+            legend: {
+              labels: { color: "#cbd5f5", f
