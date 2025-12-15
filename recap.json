@@ -2,7 +2,68 @@
   "year": 2025,
   "investorName": "承恩",
   "total_invested": 320000,
-  "total_value_end": 361500,
-  "total_return_pct": 12.97,
-  "growth_amount": 41500
+  "total_value_end": 3845320.6876003183,
+  "total_return_pct": 72.38814994539351,
+  "growth_amount": 1614702.928306318,
+  "style": {
+    "equity_pct": 127.46316584069845,
+    "bond_pct": 22.993177027016223,
+    "cash_pct": 11.127068106983472,
+    "us_pct": 111.55280522642039,
+    "tw_pct": 48.67674955369844,
+    "personality": "穩健型 ISTJ",
+    "tagline": "你偏好具備強基本面與產業龍頭的標的，對波動有紀律但不盲目追高。"
+  },
+  "top_holdings": [
+    {
+      "ticker": "AZ FUND",
+      "name": "AZ FUND",
+      "weight_pct": 34.97140857450095,
+      "return_pct": 0,
+      "contribution": 0
+    },
+    {
+      "ticker": "QQQ",
+      "name": "QQQ",
+      "weight_pct": 27.160112517393227,
+      "return_pct": 0,
+      "contribution": 0
+    },
+    {
+      "ticker": "TSLA",
+      "name": "TSLA",
+      "weight_pct": 19.362463094743283,
+      "return_pct": 0,
+      "contribution": 0
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVDA",
+      "weight_pct": 7.042639173339206,
+      "return_pct": 0,
+      "contribution": 0
+    },
+    {
+      "ticker": "TSMC",
+      "name": "TSMC",
+      "weight_pct": 6.091181797911783,
+      "return_pct": 0,
+      "contribution": 0
+    }
+  ],
+  "drama": {
+    "max_daily_pl": 205293.43844444025,
+    "min_daily_pl": -180895.19672501925,
+    "max_drawdown_pct": -35.01067288126885,
+    "most_checked_ticker": "-",
+    "most_checked_times": 0
+  },
+  "outlook": {
+    "focus_areas": [
+      "建立固定的再平衡機制（例如每季或半年檢查一次配置）",
+      "強化風險與部位管理，避免單一標的比重過高",
+      "保留部分現金部位應對系統性回調"
+    ],
+    "motto": "2026, let your discipline compound."
+  }
 }
