@@ -8,191 +8,87 @@
 </head>
 
 <body class="bg-slate-950 text-slate-100 min-h-screen">
-  <div class="max-w-6xl mx-auto px-6 py-16 space-y-20">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-20">
 
-    <!-- Hero -->
+    <!-- 1. Year Summary -->
     <section class="space-y-6">
-      <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
+      <h1 class="text-4xl font-semibold">
         <span id="year">----</span> Investment Wrapped
-        <span class="block text-blue-400 mt-2" id="name">Loading...</span>
       </h1>
-      <p class="text-slate-400 max-w-2xl">
-        回顧這一年，你的資金配置、承受的波動，以及最終留下的成績單。
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-slate-800 p-6">
+          <p class="text-slate-400 text-sm">淨值 YTD</p>
+          <p class="text-2xl font-semibold">
+            NTD <span id="net_value_ytd">--</span>
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 p-6">
+          <p class="text-slate-400 text-sm">年度報酬率</p>
+          <p class="text-2xl font-semibold text-blue-400">
+            <span id="annual_return_pct">--</span> %
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Annual Volatility -->
+    <section class="space-y-10">
+      <h2 class="text-xl font-semibold">年度關鍵波動</h2>
+
+      <!-- High -->
+      <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
+        <h3 class="text-emerald-400 font-medium">最輝煌的時刻</h3>
+        <p>單日最高獲利：NTD <span id="best_day_profit">--</span></p>
+        <p>連續 <span id="max_up_streak_weeks">--</span> 週上漲</p>
+      </div>
+
+      <!-- Low -->
+      <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
+        <h3 class="text-rose-400 font-medium">最需要支持的時刻</h3>
+        <p>單日最高虧損：NTD <span id="worst_day_loss">--</span></p>
+        <p>
+          <span id="drawdown_weeks">--</span> 週內下跌
+          <span id="drawdown_pct">--</span> %
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Top 5 Holdings -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold">Top 5 持股（依市值）</h2>
+
+      <ul class="space-y-2">
+        <li>1. <span id="holding_1_name">--</span>（<span id="holding_1_weight">--</span>%）</li>
+        <li>2. <span id="holding_2_name">--</span>（<span id="holding_2_weight">--</span>%）</li>
+        <li>3. <span id="holding_3_name">--</span>（<span id="holding_3_weight">--</span>%）</li>
+        <li>4. <span id="holding_4_name">--</span>（<span id="holding_4_weight">--</span>%）</li>
+        <li>5. <span id="holding_5_name">--</span>（<span id="holding_5_weight">--</span>%）</li>
+      </ul>
+    </section>
+
+    <!-- 4. Best Asset Class -->
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">獲利最高的資產類別</h2>
+      <p class="text-lg text-blue-400">
+        <span id="best_asset_class">--</span>
       </p>
     </section>
 
-    <!-- Overview -->
-    <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="rounded-2xl border border-slate-800 p-6">
-        <p class="text-slate-400 text-sm mb-1">今年投入金額</p>
-        <p class="text-2xl font-semibold">NTD <span id="invested"></span></p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-800 p-6">
-        <p class="text-slate-400 text-sm mb-1">期末總資產</p>
-        <p class="text-2xl font-semibold text-emerald-400">
-          NTD <span id="value"></span>
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-800 p-6">
-        <p class="text-slate-400 text-sm mb-1">年度報酬率</p>
-        <p class="text-2xl font-semibold text-blue-400">
-          <span id="return"></span> %
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-800 p-6">
-        <p class="text-slate-400 text-sm mb-1">資產成長</p>
-        <p class="text-2xl font-semibold text-pink-400">
-          NTD <span id="growth"></span>
-        </p>
-      </div>
-    </section>
-
-    <!-- Style -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-semibold">你的投資風格</h2>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
-          <p class="text-slate-400 text-sm">資產配置</p>
-          <ul class="text-sm space-y-1">
-            <li>股票：<span id="equity"></span>%</li>
-            <li>債券：<span id="bond"></span>%</li>
-            <li>現金：<span id="cash"></span>%</li>
-          </ul>
-        </div>
-
-        <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
-          <p class="text-slate-400 text-sm">市場分佈</p>
-          <ul class="text-sm space-y-1">
-            <li>美國：<span id="us"></span>%</li>
-            <li>台灣：<span id="tw"></span>%</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-slate-800 p-6">
-        <p class="text-blue-400 font-semibold" id="personality"></p>
-        <p class="text-slate-300 mt-2" id="tagline"></p>
-      </div>
-    </section>
-
-    <!-- Top Holdings -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-semibold">Top 5 持股</h2>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border-collapse">
-          <thead class="text-slate-400 border-b border-slate-800">
-            <tr>
-              <th class="py-2 text-left">標的</th>
-              <th class="py-2 text-right">比重</th>
-            </tr>
-          </thead>
-          <tbody id="holdings"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Drama -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-semibold">年度關鍵波動</h2>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="rounded-2xl border border-slate-800 p-6">
-          <p class="text-slate-400 text-sm">最大單日獲利</p>
-          <p class="text-2xl font-semibold text-emerald-400">
-            NTD <span id="maxPL"></span>
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-800 p-6">
-          <p class="text-slate-400 text-sm">最大單日回吐</p>
-          <p class="text-2xl font-semibold text-rose-400">
-            NTD <span id="minPL"></span>
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-800 p-6">
-          <p class="text-slate-400 text-sm">最大回撤</p>
-          <p class="text-2xl font-semibold text-amber-300">
-            <span id="drawdown"></span> %
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Outlook -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-semibold">展望未來</h2>
-
-      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-200" id="focus"></ul>
-
-      <p class="text-emerald-300 font-medium" id="motto"></p>
+    <!-- 5. Best Product -->
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">獲利最高的單一商品</h2>
+      <p class="text-lg text-emerald-400">
+        <span id="best_product">--</span>
+      </p>
     </section>
 
     <!-- Footer -->
     <footer class="pt-10 border-t border-slate-800 text-sm text-slate-500">
-      Investment Wrapped · Generated for 承恩
+      Investment Wrapped · Personal Annual Review
     </footer>
+
   </div>
-
-  <!-- JS（已驗證穩定） -->
-  <script>
-    fetch("recap.json")
-      .then(r => r.json())
-      .then(d => {
-        const f = n => Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 });
-
-        document.getElementById("year").textContent = d.year;
-        document.getElementById("name").textContent = d.investorName;
-
-        document.getElementById("invested").textContent = f(d.total_invested);
-        document.getElementById("value").textContent = f(d.total_value_end);
-        document.getElementById("return").textContent = d.total_return_pct.toFixed(2);
-        document.getElementById("growth").textContent = f(d.growth_amount);
-
-        document.getElementById("equity").textContent = d.style.equity_pct.toFixed(1);
-        document.getElementById("bond").textContent = d.style.bond_pct.toFixed(1);
-        document.getElementById("cash").textContent = d.style.cash_pct.toFixed(1);
-
-        document.getElementById("us").textContent = d.style.us_pct.toFixed(1);
-        document.getElementById("tw").textContent = d.style.tw_pct.toFixed(1);
-
-        document.getElementById("personality").textContent = d.style.personality;
-        document.getElementById("tagline").textContent = d.style.tagline;
-
-        const tbody = document.getElementById("holdings");
-        d.top_holdings.forEach(h => {
-          const tr = document.createElement("tr");
-          tr.className = "border-b border-slate-800";
-          tr.innerHTML = `
-            <td class="py-2">${h.ticker}</td>
-            <td class="py-2 text-right">${h.weight_pct.toFixed(1)}%</td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        document.getElementById("maxPL").textContent = f(d.drama.max_daily_pl);
-        document.getElementById("minPL").textContent = f(d.drama.min_daily_pl);
-        document.getElementById("drawdown").textContent =
-          d.drama.max_drawdown_pct.toFixed(1);
-
-        const focus = document.getElementById("focus");
-        d.outlook.focus_areas.forEach(t => {
-          const li = document.createElement("li");
-          li.textContent = t;
-          focus.appendChild(li);
-        });
-
-        document.getElementById("motto").textContent = d.outlook.motto;
-      })
-      .catch(err => {
-        document.body.innerHTML =
-          "<pre class='text-red-400'>ERROR\\n" + err + "</pre>";
-      });
-  </script>
 </body>
 </html>
