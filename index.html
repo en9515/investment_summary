@@ -5,90 +5,247 @@
   <title>Investment Wrapped</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+    .snap {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      overscroll-behavior: contain;
+    }
+    .snap-section {
+      height: 100vh;
+      scroll-snap-align: start;
+    }
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-20">
+<body class="bg-slate-950 text-slate-100 text-base md:text-lg">
+<main class="snap">
 
-    <!-- 1. Year Summary -->
-    <section class="space-y-6">
-      <h1 class="text-4xl font-semibold">
-        <span id="year">----</span> Investment Wrapped
-      </h1>
+<!-- PAGE 1：Hero -->
+<section class="snap-section flex items-center justify-center px-8">
+  <div class="text-center space-y-6 reveal">
+    <h1 class="text-5xl md:text-6xl font-semibold">
+      <span id="year">2025</span> Investment Wrapped
+    </h1>
+    <p class="text-slate-400 text-lg">
+      這一年，你的錢經歷了什麼？
+    </p>
+    <p class="text-sm text-slate-500 md:hidden">↑ 滑動查看</p>
+  </div>
+</section>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-slate-800 p-6">
-          <p class="text-slate-400 text-sm">淨值 YTD</p>
-          <p class="text-2xl font-semibold">
-            NTD <span id="net_value_ytd">--</span>
-          </p>
-        </div>
+<!-- PAGE 2：年度快照 -->
+<section class="snap-section flex items-center px-8">
+  <div class="max-w-6xl mx-auto space-y-10 reveal">
+    <div>
+      <h2 class="text-4xl font-semibold">結果，是所有選擇的總和</h2>
+      <p class="text-slate-400 mt-2">投入、報酬與風險，一次攤開來看。</p>
+    </div>
 
-        <div class="rounded-2xl border border-slate-800 p-6">
-          <p class="text-slate-400 text-sm">年度報酬率</p>
-          <p class="text-2xl font-semibold text-blue-400">
-            <span id="annual_return_pct">--</span> %
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Annual Volatility -->
-    <section class="space-y-10">
-      <h2 class="text-xl font-semibold">年度關鍵波動</h2>
-
-      <!-- High -->
-      <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
-        <h3 class="text-emerald-400 font-medium">最輝煌的時刻</h3>
-        <p>單日最高獲利：NTD <span id="best_day_profit">--</span></p>
-        <p>連續 <span id="max_up_streak_weeks">--</span> 週上漲</p>
-      </div>
-
-      <!-- Low -->
-      <div class="rounded-2xl border border-slate-800 p-6 space-y-3">
-        <h3 class="text-rose-400 font-medium">最需要支持的時刻</h3>
-        <p>單日最高虧損：NTD <span id="worst_day_loss">--</span></p>
-        <p>
-          <span id="drawdown_weeks">--</span> 週內下跌
-          <span id="drawdown_pct">--</span> %
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <p class="text-slate-400 text-sm">投入資金</p>
+        <p class="text-2xl font-semibold">
+          NTD <span class="count-up" data-value="0">0</span>
         </p>
       </div>
-    </section>
 
-    <!-- 3. Top 5 Holdings -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-semibold">Top 5 持股（依市值）</h2>
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <p class="text-slate-400 text-sm">淨值 YTD</p>
+        <p class="text-2xl font-semibold text-emerald-400">
+          NTD <span class="count-up" data-value="0">0</span>
+        </p>
+      </div>
 
-      <ul class="space-y-2">
-        <li>1. <span id="holding_1_name">--</span>（<span id="holding_1_weight">--</span>%）</li>
-        <li>2. <span id="holding_2_name">--</span>（<span id="holding_2_weight">--</span>%）</li>
-        <li>3. <span id="holding_3_name">--</span>（<span id="holding_3_weight">--</span>%）</li>
-        <li>4. <span id="holding_4_name">--</span>（<span id="holding_4_weight">--</span>%）</li>
-        <li>5. <span id="holding_5_name">--</span>（<span id="holding_5_weight">--</span>%）</li>
-      </ul>
-    </section>
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <p class="text-slate-400 text-sm">年度報酬率</p>
+        <p class="text-2xl font-semibold text-blue-400">
+          <span class="count-up" data-value="0">0</span> %
+        </p>
+      </div>
 
-    <!-- 4. Best Asset Class -->
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold">獲利最高的資產類別</h2>
-      <p class="text-lg text-blue-400">
-        <span id="best_asset_class">--</span>
-      </p>
-    </section>
-
-    <!-- 5. Best Product -->
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold">獲利最高的單一商品</h2>
-      <p class="text-lg text-emerald-400">
-        <span id="best_product">--</span>
-      </p>
-    </section>
-
-    <!-- Footer -->
-    <footer class="pt-10 border-t border-slate-800 text-sm text-slate-500">
-      Investment Wrapped · Personal Annual Review
-    </footer>
-
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <p class="text-slate-400 text-sm">槓桿比例</p>
+        <p class="text-2xl font-semibold text-amber-300">
+          <span class="count-up" data-value="0">0</span> %
+        </p>
+      </div>
+    </div>
   </div>
+</section>
+
+<!-- PAGE 3：投資風格 -->
+<section class="snap-section flex items-center px-8">
+  <div class="max-w-5xl mx-auto space-y-10 reveal">
+    <div>
+      <h2 class="text-4xl font-semibold">你不是追逐市場，而是在建構配置</h2>
+      <p class="text-slate-400 mt-2">你的選擇，形成了你的投資風格。</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      <span class="px-4 py-2 rounded-full border border-slate-700">結構性進取</span>
+      <span class="px-4 py-2 rounded-full border border-slate-700">趨勢容忍型</span>
+      <span class="px-4 py-2 rounded-full border border-slate-700">核心配置導向</span>
+    </div>
+
+    <p class="text-slate-300 leading-relaxed max-w-3xl">
+      你願意承受波動，換取長期趨勢的累積，並將資金集中在你最有信心的核心資產上，同時保留必要的緩衝。
+    </p>
+  </div>
+</section>
+
+<!-- PAGE 4：損益全景 -->
+<section class="snap-section flex items-center px-8">
+  <div class="max-w-6xl mx-auto space-y-10 reveal">
+    <div class="text-center">
+      <h2 class="text-4xl font-semibold">有些成果已經落袋</h2>
+      <p class="text-slate-400 mt-2">有些選擇，仍在路上。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <h3 class="text-emerald-400 mb-3">已實現獲利</h3>
+        <ul id="realizedGain" class="space-y-1"></ul>
+      </div>
+
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <h3 class="text-emerald-300 mb-3">未實現獲利</h3>
+        <ul id="unrealizedGain" class="space-y-1"></ul>
+      </div>
+
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <h3 class="text-rose-400 mb-3">已實現虧損</h3>
+        <ul id="realizedLoss" class="space-y-1"></ul>
+      </div>
+
+      <div class="rounded-2xl border border-slate-800 p-6">
+        <h3 class="text-rose-300 mb-3">未實現虧損</h3>
+        <ul id="unrealizedLoss" class="space-y-1"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 5：戲劇性時刻 -->
+<section class="snap-section flex items-center px-8">
+  <div class="max-w-5xl mx-auto space-y-8 reveal">
+    <h2 class="text-4xl font-semibold">你撐過的波動，才是這年的重量</h2>
+    <p class="text-slate-400">
+      高光與低谷，都是你持續站在場內的證明。
+    </p>
+  </div>
+</section>
+
+<!-- PAGE 6：下一步 -->
+<section class="snap-section flex items-center px-8">
+  <div class="max-w-4xl mx-auto space-y-6 reveal">
+    <h2 class="text-4xl font-semibold">接下來，讓紀律繼續工作</h2>
+    <ul class="list-disc pl-5 space-y-2 text-slate-300">
+      <li>維持配置邏輯，而非追逐短期情緒</li>
+      <li>讓回撤成為檢查風險的訊號</li>
+      <li>為下一次波動，保留選擇權</li>
+    </ul>
+
+    <p class="pt-6 text-emerald-300 font-medium">
+      — 承恩，<span id="yearFooter">2025</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- JS：Reveal -->
+<script>
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("active");
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+</script>
+
+<!-- JS：Count Up -->
+<script>
+  function animateNumber(el, duration = 1200) {
+    const target = parseFloat(el.dataset.value);
+    let start = 0;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const p = Math.min((now - startTime) / duration, 1);
+      const val = start + (target - start) * p;
+      el.textContent = Number.isInteger(target)
+        ? Math.round(val).toLocaleString()
+        : val.toFixed(2);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const numberObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll(".count-up").forEach(el => {
+          if (!el.dataset.done) {
+            el.dataset.done = "1";
+            animateNumber(el);
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll(".snap-section").forEach(sec => numberObserver.observe(sec));
+</script>
+
+<!-- JS：PNL Render -->
+<script>
+  function renderList(id, items, color) {
+    const ul = document.getElementById(id);
+    items.forEach((d, i) => {
+      const li = document.createElement("li");
+      li.className = "flex justify-between tabular-nums";
+      li.innerHTML = `
+        <span>${i + 1}. ${d.name}</span>
+        <span class="${color}">
+          ${d.value > 0 ? "+" : ""}${d.value.toLocaleString()}
+        </span>
+      `;
+      ul.appendChild(li);
+    });
+  }
+
+  fetch("recap.json")
+    .then(r => r.json())
+    .then(d => {
+      const p = d.pnlLandscape;
+      renderList("realizedGain", p.realizedGain, "text-emerald-300");
+      renderList("unrealizedGain", p.unrealizedGain, "text-emerald-200");
+      renderList("realizedLoss", p.realizedLoss, "text-rose-300");
+      renderList("unrealizedLoss", p.unrealizedLoss, "text-rose-200");
+    });
+</script>
+
 </body>
 </html>
