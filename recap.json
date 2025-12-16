@@ -1,70 +1,66 @@
 {
   "year": 2025,
   "investorName": "承恩",
-  "total_invested": 320000,
-  "total_value_end": 3845320.6876003183,
-  "total_return_pct": 72.38814994539351,
-  "growth_amount": 1614702.928306318,
+
+  "snapshot": {
+    "totalInvested": 1200000,
+    "netValueYTD": 1845320,
+    "annualReturnPct": 23.8,
+    "leveragePct": 18.5
+  },
+
   "style": {
-    "equity_pct": 127.46316584069845,
-    "bond_pct": 22.993177027016223,
-    "cash_pct": 11.127068106983472,
-    "us_pct": 111.55280522642039,
-    "tw_pct": 48.67674955369844,
-    "personality": "穩健型 ISTJ",
-    "tagline": "你偏好具備強基本面與產業龍頭的標的，對波動有紀律但不盲目追高。"
-  },
-  "top_holdings": [
-    {
-      "ticker": "AZ FUND",
-      "name": "AZ FUND",
-      "weight_pct": 34.97140857450095,
-      "return_pct": 0,
-      "contribution": 0
-    },
-    {
-      "ticker": "QQQ",
-      "name": "QQQ",
-      "weight_pct": 27.160112517393227,
-      "return_pct": 0,
-      "contribution": 0
-    },
-    {
-      "ticker": "TSLA",
-      "name": "TSLA",
-      "weight_pct": 19.362463094743283,
-      "return_pct": 0,
-      "contribution": 0
-    },
-    {
-      "ticker": "NVDA",
-      "name": "NVDA",
-      "weight_pct": 7.042639173339206,
-      "return_pct": 0,
-      "contribution": 0
-    },
-    {
-      "ticker": "TSMC",
-      "name": "TSMC",
-      "weight_pct": 6.091181797911783,
-      "return_pct": 0,
-      "contribution": 0
-    }
-  ],
-  "drama": {
-    "max_daily_pl": 205293.43844444025,
-    "min_daily_pl": -180895.19672501925,
-    "max_drawdown_pct": -35.01067288126885,
-    "most_checked_ticker": "-",
-    "most_checked_times": 0
-  },
-  "outlook": {
-    "focus_areas": [
-      "建立固定的再平衡機制（例如每季或半年檢查一次配置）",
-      "強化風險與部位管理，避免單一標的比重過高",
-      "保留部分現金部位應對系統性回調"
+    "tags": [
+      "結構性進取",
+      "趨勢容忍型",
+      "核心配置導向"
     ],
-    "motto": "2026, let your discipline compound."
+    "narrative": "你願意承受波動，換取長期趨勢的累積，並將資金集中在你最有信心的核心資產上，同時保留必要的緩衝。"
+  },
+
+  "pnlLandscape": {
+    "realizedGain": [
+      { "name": "NVDA", "value": 428000 },
+      { "name": "TSLA", "value": 215400 },
+      { "name": "QQQ", "value": 182300 },
+      { "name": "AMD", "value": 96400 },
+      { "name": "AVGO", "value": 72100 }
+    ],
+    "realizedLoss": [
+      { "name": "PYPL", "value": -86500 },
+      { "name": "DIS", "value": -62400 },
+      { "name": "BABA", "value": -48800 },
+      { "name": "INTC", "value": -35100 },
+      { "name": "ARKK", "value": -29400 }
+    ],
+    "unrealizedGain": [
+      { "name": "NVDA", "value": 512300 },
+      { "name": "QQQ", "value": 238900 },
+      { "name": "TSMC", "value": 174600 },
+      { "name": "PLTR", "value": 91200 },
+      { "name": "META", "value": 68400 }
+    ],
+    "unrealizedLoss": [
+      { "name": "TSLA", "value": -132800 },
+      { "name": "SHOP", "value": -77400 },
+      { "name": "ROKU", "value": -55800 },
+      { "name": "SNAP", "value": -41900 },
+      { "name": "COIN", "value": -36600 }
+    ]
+  },
+
+  "drama": {
+    "maxDailyProfit": 185600,
+    "maxDailyLoss": -142300,
+    "maxDrawdownPct": -18.7
+  },
+
+  "next": {
+    "steps": [
+      "固定檢視配置結構，而不是追逐短期績效。",
+      "為高波動資產設定明確的風險上限。",
+      "保留足夠現金，讓下次回撤成為機會而非壓力。"
+    ],
+    "motto": "Let discipline do the heavy lifting."
   }
 }
-
