@@ -152,6 +152,49 @@
     </p>
   </div>
 </section>
+  <!-- 補充：關鍵波動指標（新增，不取代） -->
+<div class="mt-10 rounded-2xl border border-slate-800 p-6 reveal">
+  <p class="text-slate-400 text-sm mb-4">
+    關鍵波動指標（Key Volatility Metrics）
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+
+    <!-- ① 單日最高獲利 -->
+    <div class="space-y-1">
+      <p class="text-slate-500">① 單日最高獲利</p>
+      <p class="text-xl font-semibold text-emerald-300 tabular-nums">
+        +<span id="maxDailyProfit" class="count-up" data-value="0">0</span>
+      </p>
+    </div>
+
+    <!-- ② 單日最高虧損 -->
+    <div class="space-y-1">
+      <p class="text-slate-500">② 單日最高虧損</p>
+      <p class="text-xl font-semibold text-rose-300 tabular-nums">
+        <span id="maxDailyLoss" class="count-up" data-value="0">0</span>
+      </p>
+    </div>
+
+    <!-- ③ 最大單段漲幅 -->
+    <div class="space-y-1">
+      <p class="text-slate-500">③ 最大單段漲幅</p>
+      <p class="text-xl font-semibold text-emerald-200 tabular-nums">
+        +<span id="maxRunUpPct" class="count-up" data-value="0">0</span> %
+      </p>
+    </div>
+
+    <!-- ④ 最大回撤 -->
+    <div class="space-y-1">
+      <p class="text-slate-500">④ 最大回撤</p>
+      <p class="text-xl font-semibold text-amber-300 tabular-nums">
+        <span id="maxDrawdownPct" class="count-up" data-value="0">0</span> %
+      </p>
+    </div>
+
+  </div>
+</div>
+
 
 <!-- PAGE 6：下一步 -->
 <section class="snap-section flex items-center px-8">
@@ -249,3 +292,4 @@
 
 </body>
 </html>
+
