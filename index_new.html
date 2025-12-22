@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>2025 Investment Wrapped</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* 基礎設定 */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #0f172a 100%);
+      color: #e5e7eb;
+      overflow-x: hidden;
+    }
+    
+    /* 玻璃擬態邊框與卡片 */
+    .gradient-border {
+      position: relative;
+      border-radius: 1.5rem;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(236,72,153,0.5));
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gradient-border:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59,130,246,0.15);
+    }
+    .gradient-border-inner {
+      border-radius: 1.45rem;
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(12px);
+      height: 100%;
+    }
+
+    /* 背景網格 */
+    .bg-grid {
+      background-image: linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* 膠囊標籤 */
+    .pill {
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    /* 文字光暈效果 */
+    .text-shadow-glow {
+      text-shadow: 0 0 20px rgba(59,130,246,0.3);
+    }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 selection:bg-blue-500/30">
+
+  <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
+          <span class="text-xs font-bold text-white">IW</span>
+        </div>
+        <div class="text-sm text-slate-200 font-medium">
+          <span id="nav-year">2025</span> Investment Wrapped
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-6 text-xs font-medium text-slate-400">
+        <a href="#overview" class="hover:text-blue-400 transition-colors">核心數據</a>
+        <a href="#drama" class="hover:text-pink-400 transition-colors">戲劇性時刻</a>
+        <a href="#holdings" class="hover:text-emerald-400 transition-colors">TOP 5 持股</a>
+        <a href="#credit" class="hover:text-amber-400 transition-colors">信貸績效</a>
+        <a href="#outlook" class="hover:text-purple-400 transition-colors">展望</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 pb-20 pt-10 space-y-20">
+    
+    <section id="hero" class="relative overflow-hidden rounded-[2.5rem] bg-grid border border-slate-800/60 shadow-2xl shadow-black/50">
+      <div class="absolute -top-40 -left-20 w-96 h-96 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+      <div class="absolute -bottom-40 -right-20 w-96 h-96 bg-pink-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div class="relative z-10 px-6 py-12 md:px-16 md:py-20 flex flex-col md:flex-row md:items-center gap-12">
+        <div class="flex-1 space-y-8">
+          <div class="pill inline-flex items-center gap-2 px-4 py-1.5 text-xs font-medium text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+            <span>Your Annual Report</span>
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
+            <span id="hero-year" class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">2025</span>
+            <span class="block mt-2 text-slate-100">
+              <span id="hero-name">Your</span> Investment<br/>Wrapped
+            </span>
+          </h1>
+          
+          <p class="text-slate-400 text-sm md:text-base leading-relaxed max-w-lg">
+            回顧這一年，每一筆投入與每一個決策，都在形塑你的資產軌跡。
+            這是屬於你的投資故事，包含數字背後的紀律與成長。
+          </p>
+
+          <div class="flex gap-4 pt-2">
+            <button onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})" 
+              class="px-6 py-3 rounded-full bg-slate-100 text-slate-900 text-sm font-bold hover:bg-white hover:scale-105 transition transform shadow-lg shadow-slate-100/10">
+              開始回顧
+            </button>
+          </div>
+        </div>
+
+        <div class="flex-1 w-full flex justify-center md:justify-end">
+          <div class="gradient-border w-full max-w-sm">
+            <div class="gradient-border-inner p-8 flex flex-col justify-center space-y-8">
+              <p class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2">
+                SNAPSHOT
+              </p>
+              
+              <div class="space-y-1">
+                <p class="text-sm text-slate-400">目前淨值 (Net Value)</p>
+                <p id="hero-net-value" class="text-4xl font-bold text-emerald-400 tracking-tight text-shadow-glow">
+                  NTD -
+                </p>
+              </div>
+
+              <div class="space-y-1">
+                <p class="text-sm text-slate-400">年報酬率 (YTD Return)</p>
+                <p id="hero-return-pct" class="text-4xl font-bold text-blue-400 tracking-tight text-shadow-glow">
+                  -
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="space-y-8">
+      <div class="flex items-end justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">核心數據</h2>
+          <p class="text-xs text-slate-400 mt-1">資產規模與整體績效總覽</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 space-y-2">
+            <p class="text-xs text-slate-400">總投入本金</p>
+            <p id="core-invested" class="text-2xl font-bold text-slate-100">NTD -</p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 space-y-2">
+            <p class="text-xs text-slate-400">目前淨值</p>
+            <p id="core-net" class="text-2xl font-bold text-emerald-400">NTD -</p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 space-y-2">
+            <p class="text-xs text-slate-400">年報酬率</p>
+            <p id="core-return" class="text-2xl font-bold text-blue-400">-</p>
+          </div>
+        </div>
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 space-y-2">
+            <p class="text-xs text-slate-400">槓桿比率</p>
+            <p id="core-leverage" class="text-2xl font-bold text-pink-400">-</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="drama" class="space-y-8">
+      <div class="flex items-end justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">戲劇性時刻</h2>
+          <p class="text-xs text-slate-400 mt-1">極端波動紀錄，風險與機會並存</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 relative overflow-hidden flex flex-col justify-between h-full">
+            <div class="absolute -right-4 -top-4 text-8xl opacity-5 select-none">📈</div>
+            <div>
+              <p class="text-xs text-slate-400 mb-2">最大單日獲利</p>
+              <p id="drama-profit-amt" class="text-3xl font-bold text-emerald-400 mb-4 tracking-tight">NTD -</p>
+            </div>
+            <div class="inline-flex items-center gap-2 self-start bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20">
+              <span class="text-xs text-emerald-300 font-mono" id="drama-profit-date">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 relative overflow-hidden flex flex-col justify-between h-full">
+            <div class="absolute -right-4 -top-4 text-8xl opacity-5 select-none">📉</div>
+            <div>
+              <p class="text-xs text-slate-400 mb-2">最大單日虧損</p>
+              <p id="drama-loss-amt" class="text-3xl font-bold text-rose-400 mb-4 tracking-tight">NTD -</p>
+            </div>
+            <div class="inline-flex items-center gap-2 self-start bg-rose-500/10 px-3 py-1.5 rounded-lg border border-rose-500/20">
+              <span class="text-xs text-rose-300 font-mono" id="drama-loss-date">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 relative overflow-hidden flex flex-col justify-between h-full">
+            <div class="absolute -right-4 -top-4 text-8xl opacity-5 select-none">🌊</div>
+            <div>
+              <p class="text-xs text-slate-400 mb-2">最大回撤金額</p>
+              <p id="drama-dd-amt" class="text-3xl font-bold text-amber-400 mb-4 tracking-tight">NTD -</p>
+            </div>
+            <div class="inline-flex items-center gap-2 self-start bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20">
+              <span class="text-xs text-amber-300 font-medium">幅度：<span id="drama-dd-pct">-</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="holdings" class="space-y-8">
+      <div class="flex items-end justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">TOP 5 持股</h2>
+          <p class="text-xs text-slate-400 mt-1">權重最高的五大核心標的</p>
+        </div>
+      </div>
+
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-6 overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="text-xs text-slate-400 border-b border-slate-700/50">
+              <tr>
+                <th class="py-3 pr-4 font-medium">標的 (Ticker)</th>
+                <th class="py-3 pr-4 font-medium">名稱</th>
+                <th class="py-3 pr-4 text-right font-medium">權重 (%)</th>
+                <th class="py-3 pr-0 text-right font-medium">報酬率 (%)</th>
+              </tr>
+            </thead>
+            <tbody id="holdings-body" class="divide-y divide-slate-800/50">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="credit" class="space-y-8">
+      <div class="flex items-end justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">信貸績效</h2>
+          <p class="text-xs text-slate-400 mt-1">分項資產表現與配息追蹤</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 flex flex-col justify-between h-full">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+                <h3 class="text-sm font-bold text-slate-200">IB 投資帳戶</h3>
+              </div>
+              <div class="mb-4">
+                <p class="text-xs text-slate-400 mb-1">未實現損益</p>
+                <p id="cp-ib-pl" class="text-2xl font-bold tracking-tight">-</p>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400 mb-1">報酬率</p>
+              <div id="cp-ib-ret" class="text-sm font-bold">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 flex flex-col justify-between h-full">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
+                <h3 class="text-sm font-bold text-slate-200">基金配置</h3>
+              </div>
+              <div class="mb-4">
+                <p class="text-xs text-slate-400 mb-1">未實現損益</p>
+                <p id="cp-fund-pl" class="text-2xl font-bold tracking-tight">-</p>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400 mb-1">報酬率</p>
+              <div id="cp-fund-ret" class="text-sm font-bold">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-6 flex flex-col justify-between h-full">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]"></div>
+                <h3 class="text-sm font-bold text-slate-200">台股資產</h3>
+              </div>
+              <div class="mb-4">
+                <p class="text-xs text-slate-400 mb-1">未實現損益</p>
+                <p id="cp-tw-pl" class="text-2xl font-bold tracking-tight">-</p>
+              </div>
+              <div class="mb-2 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50">
+                <p class="text-[10px] text-slate-400 uppercase mb-1">累積配息</p>
+                <p id="cp-tw-div" class="text-lg font-mono text-emerald-300">-</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <p class="text-xs text-slate-400 mb-1">報酬率</p>
+              <div id="cp-tw-ret" class="text-sm font-bold">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outlook" class="space-y-8">
+      <div class="flex items-end justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">明年展望</h2>
+          <p class="text-xs text-slate-400 mt-1">給未來自己的備忘錄</p>
+        </div>
+      </div>
+
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-8 md:p-10">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-sm font-bold text-slate-300 mb-4 flex items-center gap-2">
+                <span class="text-blue-400">⚡</span> 重點專注方向
+              </h3>
+              <ul id="outlook-list" class="space-y-3 text-sm text-slate-300 pl-2">
+                </ul>
+            </div>
+            
+            <div class="pt-6 border-t border-slate-800/50">
+              <p class="text-xs text-slate-500 mb-2 uppercase tracking-widest">Motto for 2026</p>
+              <p id="outlook-motto" class="text-xl md:text-2xl font-serif italic text-emerald-200 leading-relaxed">
+                -
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-8 border-t border-slate-800/50 text-center text-xs text-slate-500">
+      <p>Generated by <span class="text-slate-400">Investment Wrapped Engine</span></p>
+      <p class="mt-1"><span id="footer-year">2025</span> · Crafted for <span id="footer-name" class="text-slate-300">User</span></p>
+    </footer>
+
+  </main>
+
+  <script>
+    // ==========================================
+    // ▼ 使用者數據填寫區 (已自動填入) ▼
+    // ==========================================
+    const userData = {
+      year: 2025,
+      investorName: "ChengEn",
+
+      // 1. 核心數據
+      total_invested: 401725,       
+      net_value_ytd: 1633144,        
+      annual_return_pct: 32.09,  
+      leverage_ratio: 1.44,    
+
+      // 2. 戲劇性時刻
+      max_daily_profit: {
+        amount: 169775,             
+        date: "2025/4/9"     
+      },
+      max_daily_loss: {
+        amount: -180895,             
+        date: "2025/5/5"     
+      },
+      max_drawdown: {
+        amount: -801653,             
+        percent: -35.01           
+      },
+
+      // 3. TOP 5 持股
+      top_holdings: [
+        { ticker: "AZ Fund", name: "安聯科技基金", weight_pct: 24.36, return_pct: 108 },
+        { ticker: "QQQ", name: "Nasdaq 100", weight_pct: 18.47, return_pct: 42 },
+        { ticker: "TSLA", name: "特斯拉", weight_pct: 12.84, return_pct: 61 },
+        { ticker: "NVDA", name: "英偉達", weight_pct: 7.31, return_pct: 38 },
+        { ticker: "AMD", name: "超微", weight_pct: 5.02, return_pct: 69 }
+      ],
+
+      // 4. 信貸績效
+      credit_performance: {
+        ib: {
+          unrealized_pl: 530514,    
+          return_pct: 66.3      
+        },
+        fund: {
+          unrealized_pl: 167610.064,    
+          return_pct: 61      
+        },
+        tw: {
+          unrealized_pl: -576,    
+          dividend: 33720,         
+          return_pct: 4.54      
+        }
+      },
+
+      // 5. 明年展望
+      outlook: {
+        focus_areas: [
+          "保持開心",
+          "心態要穩",
+          "不害怕失敗"
+        ],
+        motto: "希望2026可以找到工作重心，努力讓我們都變得更好"
+      }
+    };
+    // ==========================================
+    // ▲ 數據區結束 ▲
+    // ==========================================
+
+    // 格式化工具
+    const fmtMoney = (n) => {
+        if (n == null) return "-";
+        // 處理可能有小數點的狀況，顯示整數位即可
+        return "NTD " + Math.round(n).toLocaleString();
+    };
+    const fmtPct = (n) => n ? n.toFixed(2) + "%" : "-";
+    const fmtColor = (n, isPct=false) => {
+      const txt = isPct ? fmtPct(n) : fmtMoney(n);
+      const val = parseFloat(n);
+      let cls = "text-slate-100";
+      if(val > 0) cls = "text-emerald-400";
+      if(val < 0) cls = "text-rose-400";
+      return `<span class="${cls}">${txt}</span>`;
+    };
+
+    // 初始化頁面
+    (function init() {
+      const d = userData;
+
+      // Header & Hero
+      document.getElementById("nav-year").textContent = d.year;
+      document.getElementById("hero-year").textContent = d.year;
+      document.getElementById("hero-name").textContent = d.investorName;
+      document.getElementById("hero-net-value").textContent = fmtMoney(d.net_value_ytd);
+      document.getElementById("hero-return-pct").innerHTML = fmtColor(d.annual_return_pct, true);
+      document.getElementById("footer-year").textContent = d.year;
+      document.getElementById("footer-name").textContent = d.investorName;
+
+      // 1. Core Stats
+      document.getElementById("core-invested").textContent = fmtMoney(d.total_invested);
+      document.getElementById("core-net").textContent = fmtMoney(d.net_value_ytd);
+      document.getElementById("core-return").innerHTML = fmtColor(d.annual_return_pct, true);
+      document.getElementById("core-leverage").textContent = d.leverage_ratio + "x";
+
+      // 2. Drama
+      document.getElementById("drama-profit-amt").textContent = fmtMoney(d.max_daily_profit.amount);
+      document.getElementById("drama-profit-date").textContent = d.max_daily_profit.date;
+      document.getElementById("drama-loss-amt").textContent = fmtMoney(d.max_daily_loss.amount);
+      document.getElementById("drama-loss-date").textContent = d.max_daily_loss.date;
+      document.getElementById("drama-dd-amt").textContent = fmtMoney(d.max_drawdown.amount);
+      document.getElementById("drama-dd-pct").textContent = fmtPct(d.max_drawdown.percent);
+
+      // 3. Top Holdings
+      const tbody = document.getElementById("holdings-body");
+      d.top_holdings.forEach((h, i) => {
+        const colors = ["bg-blue-500", "bg-purple-500", "bg-pink-500", "bg-emerald-500", "bg-amber-500"];
+        const color = colors[i % colors.length];
+        const row = document.createElement("tr");
+        row.className = "hover:bg-slate-800/30 transition-colors";
+        
+        // Return Color logic
+        const retCls = h.return_pct >= 0 ? "text-emerald-400" : "text-rose-400";
+        const retSign = h.return_pct >= 0 ? "+" : "";
+
+        row.innerHTML = `
+          <td class="py-4 pr-4 font-bold text-slate-100 flex items-center gap-3">
+            <span class="w-1.5 h-8 rounded-full ${color}"></span>
+            ${h.ticker}
+          </td>
+          <td class="py-4 pr-4 text-slate-300">${h.name}</td>
+          <td class="py-4 pr-4 text-right font-mono text-slate-200">${h.weight_pct}%</td>
+          <td class="py-4 pr-0 text-right font-mono ${retCls}">${retSign}${h.return_pct}%</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      // 4. Credit Performance
+      const cp = d.credit_performance;
+      // IB
+      document.getElementById("cp-ib-pl").innerHTML = fmtColor(cp.ib.unrealized_pl);
+      document.getElementById("cp-ib-ret").innerHTML = fmtColor(cp.ib.return_pct, true);
+      // Fund
+      document.getElementById("cp-fund-pl").innerHTML = fmtColor(cp.fund.unrealized_pl);
+      document.getElementById("cp-fund-ret").innerHTML = fmtColor(cp.fund.return_pct, true);
+      // TW
+      document.getElementById("cp-tw-pl").innerHTML = fmtColor(cp.tw.unrealized_pl);
+      document.getElementById("cp-tw-div").innerHTML = fmtMoney(cp.tw.dividend);
+      document.getElementById("cp-tw-ret").innerHTML = fmtColor(cp.tw.return_pct, true);
+
+      // 5. Outlook
+      const ul = document.getElementById("outlook-list");
+      d.outlook.focus_areas.forEach(txt => {
+        const li = document.createElement("li");
+        li.className = "flex items-start gap-2 leading-relaxed";
+        li.innerHTML = `<span class="text-slate-500 mt-1">▪</span> <span>${txt}</span>`;
+        ul.appendChild(li);
+      });
+      document.getElementById("outlook-motto").textContent = `“ ${d.outlook.motto} ”`;
+
+      // Animations
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from("#hero", { duration: 1.2, y: 50, opacity: 0, ease: "power4.out" });
+      gsap.utils.toArray("section").forEach((sec, i) => {
+        gsap.from(sec, {
+          scrollTrigger: { trigger: sec, start: "top 85%" },
+          y: 40, opacity: 0, duration: 0.8, ease: "power2.out", delay: 0.1
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
